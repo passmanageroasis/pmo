@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+    --color-brand: #66cb66;
+    --color-bgMain: #1e1e1e;
+    --color-bgSecondary: #161616;
+    --color-link: #7c5dff;
+    --color-text: #ffffff
+}
+
+@layer base {
+    body {
+        background-color: var(--color-bgMain);
+        color: var(--color-text);
+    }
+
+    input, textarea {
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
