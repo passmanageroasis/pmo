@@ -1,4 +1,4 @@
-import { ButtonSubmit, InputField } from '../../components';
+import { ButtonSubmit, InputField } from '../../../../components';
 import { useState, ChangeEvent } from 'react';
 
 export function LoginForm() {
@@ -9,7 +9,7 @@ export function LoginForm() {
 
     const [formErrors, setFormErrors] = useState({
         masterPassword: '',
-    })
+    });
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -17,7 +17,11 @@ export function LoginForm() {
 
         if (name === 'masterPassword') {
             if (value.length > 0 && value.length < 12) {
-                setFormErrors({ ...formErrors, masterPassword: 'Password must be at least 12 characters long.' });
+                setFormErrors({
+                    ...formErrors,
+                    masterPassword:
+                        'Password must be at least 12 characters long.',
+                });
             } else {
                 setFormErrors({ ...formErrors, masterPassword: '' });
             }

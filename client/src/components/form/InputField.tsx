@@ -1,4 +1,4 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, FocusEvent } from 'react';
 
 interface InputFieldProps {
     label: string;
@@ -6,6 +6,8 @@ interface InputFieldProps {
     type?: 'text' | 'password' | 'email';
     value?: string;
     onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+    onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
     error?: string | boolean;
     disabled?: boolean;
     required?: boolean;
@@ -24,6 +26,8 @@ export function InputField({
     required = false,
     minLength,
     maxLength = 255,
+    onFocus,
+    onBlur,
 }: InputFieldProps) {
     return (
         <div className={'flex flex-col w-full relative my-2.5'}>
@@ -41,6 +45,8 @@ export function InputField({
                 }
                 minLength={minLength}
                 maxLength={maxLength}
+                onFocus={onFocus}
+                onBlur={onBlur}
             />
             <label
                 htmlFor={name}
@@ -52,7 +58,7 @@ export function InputField({
             >
                 {required ? `${label}*` : label}
             </label>
-            {error && <p className={'text-sm text-red-400 ml-3.25'}>{error}</p>}
+            {error && <p className={'text-sm text-red-400 ml-4.25'}>{error}</p>}
         </div>
     );
 }

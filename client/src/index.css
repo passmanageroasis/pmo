@@ -2,10 +2,10 @@
 
 @theme {
     --color-brand: #66cb66;
-    --color-bgMain: #1e1e1e;
+    --color-bgMain: #ffffff;
     --color-bgSecondary: #161616;
     --color-link: #7c5dff;
-    --color-text: #ffffff
+    --color-text: #000000
 }
 
 @layer base {

@@ -1,5 +1,8 @@
-import { ButtonSubmit, InputField } from '../../components';
+import { ButtonSubmit, InputField } from '../../../../components';
 import { useState, ChangeEvent } from 'react';
+import { PasswordStrengthMeter } from '../../index.ts';
+
+const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 export function RegisterForm() {
     const [form, setForm] = useState({
@@ -9,37 +12,39 @@ export function RegisterForm() {
     });
 
     const [formErrors, setFormErrors] = useState({
+        email: '',
         masterPassword: '',
         confirmMasterPassword: '',
     });
 
+    const [menu, setMenu] = useState(false);
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
+        // Update form state
         setForm((prevForm) => {
             const updatedForm = { ...prevForm, [name]: value };
+            const updatedErrors = { ...formErrors };
 
-            if (name === 'masterPassword') {
-                setFormErrors((prevErrors) => ({
-                    ...prevErrors,
-                    masterPassword:
-                        value.length && value.length < 12
-                            ? 'Password must be at least 12 characters long.'
-                            : '',
-                }));
-            }
-
+            // Handle password matching validation
             if (name === 'masterPassword' || name === 'confirmMasterPassword') {
-                setFormErrors((prevErrors) => ({
-                    ...prevErrors,
-                    confirmMasterPassword:
-                        updatedForm.confirmMasterPassword &&
-                        updatedForm.confirmMasterPassword !==
-                            updatedForm.masterPassword
-                            ? 'Passwords do not match.'
-                            : '',
-                }));
+                updatedErrors.confirmMasterPassword =
+                    updatedForm.confirmMasterPassword &&
+                    updatedForm.confirmMasterPassword !==
+                        updatedForm.masterPassword
+                        ? 'Passwords do not match.'
+                        : '';
             }
+
+            if (name === 'email') {
+                updatedErrors.email =
+                    value && !emailPattern.test(value)
+                        ? 'Please enter a valid email.'
+                        : '';
+            }
+
+            setFormErrors(updatedErrors);
 
             return updatedForm;
         });
@@ -54,6 +59,7 @@ export function RegisterForm() {
                 type={'email'}
                 value={form.email}
                 onChange={handleChange}
+                error={formErrors.email}
             />
             <InputField
                 label={'Master password'}
@@ -64,22 +70,10 @@ export function RegisterForm() {
                 onChange={handleChange}
                 error={formErrors.masterPassword}
                 minLength={12}
+                onFocus={() => setMenu(true)}
+                onBlur={() => setMenu(false)}
             />
-            <div className={'w-full flex justify-center items-center gap-2'}>
-                <div
-                    className={
-                        'w-full h-2 bg-white/30 rounded-full overflow-hidden'
-                    }
-                >
-                    <div
-                        style={{
-                            width: `${(form.masterPassword.length / 16) * 100}%`,
-                        }}
-                        className={`h-full bg-white transition-all duration-500 ease-out`}
-                    />
-                </div>
-                <span className={'text-sm'}>Strength</span>
-            </div>
+            <PasswordStrengthMeter password={form.masterPassword} menu={menu} />
             <InputField
                 label={'Confirm master password'}
                 name={'confirmMasterPassword'}
