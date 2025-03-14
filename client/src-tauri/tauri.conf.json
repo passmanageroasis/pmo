@@ -5,7 +5,7 @@
     "identifier": "com.pmo.app",
     "build": {
         "frontendDist": "../dist",
-        "devUrl": "http://localhost:5173",
+        "devUrl": "http://localhost:3000",
         "beforeDevCommand": "yarn dev",
         "beforeBuildCommand": "yarn build"
     },
