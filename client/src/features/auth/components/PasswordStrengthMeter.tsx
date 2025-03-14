@@ -11,7 +11,10 @@ const passwordRules = [
     { regex: /[a-z]/, description: 'At least 1 lower case letter' },
     { regex: /[A-Z]/, description: 'At least 1 upper case letter' },
     { regex: /[0-9]/, description: 'At least 1 number' },
-    { regex: /[!@#$%^&* ]/, description: 'At least 1 special character' },
+    {
+        regex: /[!@#$%^&*_ ]/,
+        description: 'At least 1 special character (!@#$%^&*_)',
+    },
 ];
 
 export function PasswordStrengthMeter({
@@ -62,7 +65,7 @@ export function PasswordStrengthMeter({
                         }`}
                     />
                 </div>
-                <span className="text-sm font-medium">
+                <span className="text-sm">
                     {password
                         ? passwordScore === 4
                             ? 'Strong'
