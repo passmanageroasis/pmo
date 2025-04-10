@@ -3,7 +3,7 @@ import zxcvbn from 'zxcvbn';
 
 interface PasswordStrengthMeterProps {
     password: string;
-    menu: boolean;
+    menu?: boolean;
 }
 
 const passwordRules = [
@@ -12,24 +12,22 @@ const passwordRules = [
     { regex: /[A-Z]/, description: 'At least 1 upper case letter' },
     { regex: /[0-9]/, description: 'At least 1 number' },
     {
-        regex: /[!@#$%^&*_ ]/,
-        description: 'At least 1 special character (!@#$%^&*_)',
+        regex: /[^a-zA-Z0-9]/,
+        description: 'At least 1 special character (e.g., !@#$%?&)',
     },
 ];
 
 export function PasswordStrengthMeter({
     password,
-    menu,
+    menu = false,
 }: PasswordStrengthMeterProps) {
     const [metConditions, setMetConditions] = useState<boolean[]>([]);
     const [passwordScore, setPasswordScore] = useState<number>(0);
-    const [showMenu, setShowMenu] = useState(menu);
 
     useEffect(() => {
         if (!password) {
             setMetConditions([]);
             setPasswordScore(0);
-            setShowMenu(false);
             return;
         }
 
@@ -40,15 +38,10 @@ export function PasswordStrengthMeter({
 
         setPasswordScore(score);
         setMetConditions(conditions);
-
-        const allCriteriaMet = conditions.every(Boolean);
-
-        if (score === 4 && allCriteriaMet) {
-            setShowMenu(false);
-        } else {
-            setShowMenu(true);
-        }
     }, [password]);
+
+    const allCriteriaMet = metConditions.every(Boolean);
+    const showMenu = menu && !(passwordScore === 4 && allCriteriaMet);
 
     return (
         <div>

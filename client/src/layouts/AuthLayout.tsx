@@ -1,4 +1,4 @@
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 
 interface AuthLayoutProps {
     title: string;
@@ -6,16 +6,15 @@ interface AuthLayoutProps {
 }
 
 export function AuthLayout({ children, title }: AuthLayoutProps) {
-    useEffect(() => {
-        const firstInput = document.querySelector('input');
-        if (firstInput) {
-            firstInput.focus();
-        }
-    }, []);
-
     return (
         <div className={'w-full flex flex-col items-center justify-center'}>
-            <img src="/logo.svg" className={'w-16 h-16 my-10'} alt="logo" />
+            <img
+                src="/logo.svg"
+                className={
+                    'h-16 w-auto my-10 brightness-100 pointer-events-none'
+                }
+                alt="logo"
+            />
             <h1 className={'text-2xl whitespace-nowrap'}>{title}</h1>
             <div
                 className={

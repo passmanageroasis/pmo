@@ -1,4 +1,4 @@
-import { ButtonSubmit, InputField } from '../../../../components';
+import { ButtonSubmit, InputField } from '../../../../components/form';
 import { useState, ChangeEvent } from 'react';
 
 export function LoginForm() {
