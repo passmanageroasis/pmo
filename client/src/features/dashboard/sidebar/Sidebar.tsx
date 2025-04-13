@@ -1,36 +1,62 @@
 import { Link, useLocation } from 'react-router';
-import { Icon } from '../../../components/icons/Icon.tsx';
-import { IconName } from '../../../components/icons/icons.ts';
+import { ReactNode } from 'react';
+import { IconContext } from 'react-icons';
+import { RiShieldKeyholeFill } from 'react-icons/ri';
+import { MdAdd, MdKey, MdPhishing, MdSettings } from 'react-icons/md';
+import { IoMdTrash } from 'react-icons/io';
 
 interface NavMenuProps {
     link: string;
     name: string;
-    icon: IconName;
+    icon: ReactNode;
+    notifications: number;
 }
 
-const navTop: NavMenuProps[] = [
-    {
-        link: '/dashboard/vault',
-        name: 'Vault',
-        icon: 'vault',
-    },
-    {
-        link: '/dashboard/password-generator',
-        name: 'Password Generator',
-        icon: 'key',
-    },
-];
-
-const navBottom: NavMenuProps[] = [
-    {
-        link: '/dashboard/settings',
-        name: 'Settings',
-        icon: 'settings',
-    },
+const nav: NavMenuProps[][] = [
+    [
+        {
+            link: '/dashboard/create-entry',
+            name: 'Create Entry',
+            icon: <MdAdd />,
+            notifications: 0,
+        },
+        {
+            link: '/dashboard/vault',
+            name: 'Vault',
+            icon: <RiShieldKeyholeFill />,
+            notifications: 0,
+        },
+        {
+            link: '/dashboard/password-generator',
+            name: 'Password Generator',
+            icon: <MdKey />,
+            notifications: 0,
+        },
+        {
+            link: '/dashboard/data-security',
+            name: 'Data Security',
+            icon: <MdPhishing />,
+            notifications: 1,
+        },
+        {
+            link: '/dashboard/recently-deleted',
+            name: 'Recently Deleted',
+            icon: <IoMdTrash />,
+            notifications: 0,
+        },
+    ],
+    [
+        {
+            link: '/dashboard/settings',
+            name: 'Settings',
+            icon: <MdSettings />,
+            notifications: 0,
+        },
+    ],
 ];
 
 export default function Sidebar() {
-    const NavMenu = ({ link, name, icon }: NavMenuProps) => {
+    const NavMenu = ({ link, name, icon, notifications }: NavMenuProps) => {
         const location = useLocation();
         const isActive = location.pathname.startsWith(link);
 
@@ -38,11 +64,26 @@ export default function Sidebar() {
             <li className="group/li">
                 <Link to={link} aria-label={name}>
                     <div
-                        className={`overflow-hidden transition-[max-width] duration-300 ease max-w-11 group-hover/nav:max-w-[200px] w-fit rounded-2xl p-2.5 flex items-center gap-2.5 ${
+                        className={`overflow-hidden transition-[max-width] duration-300 ease max-w-11 group-hover/nav:max-w-[196px] w-fit rounded-2xl p-2.5 flex items-center gap-2.5 ${
                             isActive ? 'bg-brand' : 'group-hover/li:bg-bgMain'
                         }`}
                     >
-                        <Icon name={icon} className="w-6 h-6 shrink-0" />
+                        <div className={'relative'}>
+                            <IconContext.Provider
+                                value={{ className: 'w-6 h-6 shrink-0' }}
+                            >
+                                {icon}
+                            </IconContext.Provider>
+                            {notifications > 0 && (
+                                <div
+                                    className={
+                                        'absolute -bottom-1 -right-1 text-xs w-4 h-4 bg-red-400 flex justify-center items-center rounded-full'
+                                    }
+                                >
+                                    !
+                                </div>
+                            )}
+                        </div>
                         <span
                             className={`text-nowrap leading-0 opacity-0 group-hover/nav:opacity-100 transition-opacity duration-150 ease-in`}
                         >
@@ -58,29 +99,33 @@ export default function Sidebar() {
         <nav className="group/nav w-fit bg-bgSecondary h-full p-2.5 z-100 overflow-y-auto scroll-auto relative">
             <ul className="flex flex-col gap-2.5 justify-between h-full">
                 <div className="flex flex-col gap-2.5 justify-between">
-                    {navTop.map(({ link, name, icon }) => {
+                    {nav[0].map(({ link, name, icon, notifications }) => {
                         return (
                             <NavMenu
                                 key={link}
                                 link={link}
                                 name={name}
                                 icon={icon}
+                                notifications={notifications}
                             />
                         );
                     })}
                 </div>
                 <div className="flex flex-col gap-2.5 justify-between">
                     <div className="h-px w-full bg-white/33" />
-                    {navBottom.map(({ link, name, icon }) => {
-                        return (
-                            <NavMenu
-                                key={link}
-                                link={link}
-                                name={name}
-                                icon={icon}
-                            />
-                        );
-                    })}
+                    {nav[nav.length - 1].map(
+                        ({ link, name, icon, notifications }) => {
+                            return (
+                                <NavMenu
+                                    key={link}
+                                    link={link}
+                                    name={name}
+                                    icon={icon}
+                                    notifications={notifications}
+                                />
+                            );
+                        },
+                    )}
                 </div>
             </ul>
         </nav>

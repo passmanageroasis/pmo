@@ -12,13 +12,11 @@ export function DashboardLayout() {
                 Skip to main content
             </a>
             <div className="h-full grid grid-cols-[64px_1fr]">
-                <div className="peer">
-                    <Sidebar />
-                </div>
+                <Sidebar />
                 <div className="w-full grid grid-rows-[64px_1fr] h-full">
                     <Header />
                     <main
-                        className="w-full h-full overflow-y-hidden p-5"
+                        className="w-full h-full overflow-y-auto p-5"
                         id="main-content"
                     >
                         <Outlet />

@@ -15,26 +15,34 @@ export function PasswordGenerator() {
     function generatePassword(length: number) {
         const letters = 'abcdefghijklmnopqrstuvwxyz';
         const numbers = '0123456789';
-        const special = '!@#$%^&*';
+        const special = Array.from({ length: 94 }, (_, i) => i + 33)
+            .map((c) => String.fromCharCode(c))
+            .filter((char) => !/[a-zA-Z0-9]/.test(char)) // remove letters and numbers
+            .join('');
 
-        const symbols = (
+        const symbols =
             (passwordOptions.lowerCase ? letters : '') +
             (passwordOptions.upperCase ? letters.toUpperCase() : '') +
             (passwordOptions.numbers ? numbers : '') +
-            (passwordOptions.special ? special : '')
-        ).split('');
+            (passwordOptions.special ? special : '');
 
         let password = '';
 
         if (symbols.length > 0) {
             for (let i = 0; i < length; i++) {
                 const character =
-                    symbols[Math.floor(Math.random() * symbols.length)];
+                    symbols[Math.floor(cryptoRandom() * symbols.length)];
                 password = password + character;
             }
         }
 
         setGeneratedPassword(password);
+    }
+
+    function cryptoRandom() {
+        const array = new Uint32Array(1);
+        crypto.getRandomValues(array);
+        return array[0] / (0xffffffff + 1);
     }
 
     return (

@@ -18,7 +18,7 @@ export function AuthLayout({ children, title }: AuthLayoutProps) {
             <h1 className={'text-2xl whitespace-nowrap'}>{title}</h1>
             <div
                 className={
-                    'w-md flex flex-col items-center max-w-full min-w-fit p-1.5'
+                    'w-md flex flex-col items-center max-w-full min-w-fit px-6 relative'
                 }
             >
                 {children}
