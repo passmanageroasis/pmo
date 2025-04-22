@@ -1,8 +1,8 @@
 {
     "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-    "productName": "pmo-app",
+    "productName": "passmanageroasis",
     "version": "0.1.0",
-    "identifier": "com.pmo.app",
+    "identifier": "com.passmanageroasis.app",
     "build": {
         "frontendDist": "../dist",
         "devUrl": "http://localhost:3000",
@@ -12,11 +12,12 @@
     "app": {
         "windows": [
             {
-                "title": "Pass Management Oasis",
+                "title": "Pass Manager Oasis",
                 "width": 800,
                 "height": 600,
                 "resizable": true,
-                "maximized": true
+                "maximized": true,
+                "devtools": true
             }
         ],
         "security": {

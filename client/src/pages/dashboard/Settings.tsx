@@ -1,7 +1,19 @@
-import { ButtonSubmit, InputField } from '../../components/form';
-import { PasswordStrengthMeter } from '../../features/auth';
+import { ButtonSubmit, InputField } from '@/components';
+import { PasswordStrengthMeter } from '@/features/auth';
+import { useLogout } from '@/hooks/auth/useLogout.ts';
+import { useRefreshToken } from '@/hooks/auth/useRefreshToken.ts';
 
 export function Settings() {
+    const { mutate: logout } = useLogout();
+    const { mutate: refreshToken } = useRefreshToken();
+
+    const handleLogout = () => {
+        logout();
+    };
+    const handleRefreshToken = () => {
+        refreshToken();
+    };
+
     return (
         <div className="w-sm">
             <h1 className="text-2xl mb-5">Settings</h1>
@@ -33,6 +45,15 @@ export function Settings() {
                     />
                     <ButtonSubmit text="Change password" />
                 </form>
+            </section>
+            <section>
+                <ButtonSubmit text={'Log out'} onClick={handleLogout} />
+            </section>
+            <section>
+                <ButtonSubmit
+                    text={'Refresh Token'}
+                    onClick={handleRefreshToken}
+                />
             </section>
         </div>
     );

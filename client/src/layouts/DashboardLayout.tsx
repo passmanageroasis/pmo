@@ -13,10 +13,10 @@ export function DashboardLayout() {
             </a>
             <div className="h-full grid grid-cols-[64px_1fr]">
                 <Sidebar />
-                <div className="w-full grid grid-rows-[64px_1fr] h-full">
+                <div className="h-screen w-full grid grid-rows-[64px_1fr]">
                     <Header />
                     <main
-                        className="w-full h-full overflow-y-auto p-5"
+                        className="w-full h-full p-5 overflow-y-auto"
                         id="main-content"
                     >
                         <Outlet />

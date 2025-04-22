@@ -1,35 +1,37 @@
-import { ButtonSubmit, InputField } from '../../../../components/form';
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { useNavigate } from 'react-router';
+import { ButtonSubmit, InputField } from '@/components';
+import { useLogin } from '@/hooks/auth/useLogin.ts';
 
 export function LoginForm() {
     const [form, setForm] = useState({
         email: '',
         masterPassword: '',
     });
-
-    const [formErrors, setFormErrors] = useState({
-        masterPassword: '',
-    });
+    const loginMutation = useLogin();
+    const navigate = useNavigate();
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
+    };
 
-        if (name === 'masterPassword') {
-            if (value.length > 0 && value.length < 12) {
-                setFormErrors({
-                    ...formErrors,
-                    masterPassword:
-                        'Password must be at least 12 characters long.',
-                });
-            } else {
-                setFormErrors({ ...formErrors, masterPassword: '' });
-            }
-        }
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        loginMutation.mutate(
+            {
+                email: form.email,
+                masterPassword: form.masterPassword,
+            },
+            {
+                onSuccess: () => navigate('/dashboard'),
+            },
+        );
     };
 
     return (
-        <form className={'w-full'}>
+        <form className={'w-full'} onSubmit={handleSubmit}>
             <InputField
                 label={'Email address'}
                 name={'email'}
@@ -45,10 +47,18 @@ export function LoginForm() {
                 type={'password'}
                 value={form.masterPassword}
                 onChange={handleChange}
-                error={formErrors.masterPassword}
                 minLength={12}
             />
-            <ButtonSubmit text={'Log in'} />
+            <ButtonSubmit text={'Log in'} disabled={loginMutation.isPending} />
+            {loginMutation.isError && (
+                <div
+                    className={
+                        'w-full border-1 border-red-400 bg-red-400/25 text-red-400 p-2 text-center rounded-md mt-2'
+                    }
+                >
+                    <p>{loginMutation.error.message || 'Login failed.'}</p>
+                </div>
+            )}
         </form>
     );
 }

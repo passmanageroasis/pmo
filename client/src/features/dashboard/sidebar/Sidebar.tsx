@@ -2,8 +2,13 @@ import { Link, useLocation } from 'react-router';
 import { ReactNode } from 'react';
 import { IconContext } from 'react-icons';
 import { RiShieldKeyholeFill } from 'react-icons/ri';
-import { MdAdd, MdKey, MdPhishing, MdSettings } from 'react-icons/md';
-import { IoMdTrash } from 'react-icons/io';
+import {
+    MdAdd,
+    MdHistory,
+    MdKey,
+    MdPhishing,
+    MdSettings,
+} from 'react-icons/md';
 
 interface NavMenuProps {
     link: string;
@@ -41,8 +46,8 @@ const nav: NavMenuProps[][] = [
         {
             link: '/dashboard/recently-deleted',
             name: 'Recently Deleted',
-            icon: <IoMdTrash />,
-            notifications: 0,
+            icon: <MdHistory />,
+            notifications: 5,
         },
     ],
     [
@@ -80,7 +85,7 @@ export default function Sidebar() {
                                         'absolute -bottom-1 -right-1 text-xs w-4 h-4 bg-red-400 flex justify-center items-center rounded-full'
                                     }
                                 >
-                                    !
+                                    {notifications < 9 ? notifications : "9+"}
                                 </div>
                             )}
                         </div>
@@ -96,7 +101,7 @@ export default function Sidebar() {
     };
 
     return (
-        <nav className="group/nav w-fit bg-bgSecondary h-full p-2.5 z-100 overflow-y-auto scroll-auto relative">
+        <nav className="group/nav w-fit bg-bgSecondary h-full p-2.5 z-100 overflow-y-auto relative">
             <ul className="flex flex-col gap-2.5 justify-between h-full">
                 <div className="flex flex-col gap-2.5 justify-between">
                     {nav[0].map(({ link, name, icon, notifications }) => {

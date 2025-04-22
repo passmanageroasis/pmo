@@ -1,6 +1,8 @@
-import { ButtonSubmit, InputField } from '../../../../components/form';
-import { useState, ChangeEvent } from 'react';
-import { PasswordStrengthMeter } from '../../index.ts';
+import { useState, ChangeEvent, FormEvent } from 'react';
+import { ButtonSubmit, InputField } from '@/components/form';
+import { PasswordStrengthMeter } from '@/features/auth';
+import { useNavigate } from 'react-router';
+import { useRegister } from '@/hooks/auth/useRegister.ts';
 
 const emailPattern = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -10,12 +12,13 @@ export function RegisterForm() {
         masterPassword: '',
         confirmMasterPassword: '',
     });
-
     const [formErrors, setFormErrors] = useState({
         email: '',
         masterPassword: '',
         confirmMasterPassword: '',
     });
+    const registerMutation = useRegister();
+    const navigate = useNavigate();
 
     const [menu, setMenu] = useState(false);
 
@@ -50,8 +53,19 @@ export function RegisterForm() {
         });
     };
 
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        registerMutation.mutate(
+            {
+                email: form.email,
+                masterPassword: form.masterPassword,
+            },
+            { onSuccess: () => navigate('/login') },
+        );
+    };
+
     return (
-        <form className={'w-full'}>
+        <form className={'w-full'} onSubmit={handleSubmit}>
             <InputField
                 label={'Email address'}
                 name={'email'}
@@ -83,8 +97,21 @@ export function RegisterForm() {
                 onChange={handleChange}
                 error={formErrors.confirmMasterPassword}
                 minLength={12}
+                disabled={registerMutation.isPending}
             />
             <ButtonSubmit text={'Register'} />
+            {registerMutation.isError && (
+                <div
+                    className={
+                        'w-full border-1 border-red-400 bg-red-400/25 text-red-400 p-2 text-center rounded-md mt-2'
+                    }
+                >
+                    <p>
+                        {registerMutation.error.message ||
+                            'Registration failed.'}
+                    </p>
+                </div>
+            )}
         </form>
     );
 }
