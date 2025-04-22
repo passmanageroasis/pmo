@@ -14,7 +14,7 @@ export default function RegisterPage() {
             </div>
             <p className="text-white text-center">
                 Already have an account?
-                <Link to="/" className="text-link underline">
+                <Link to="/login" className="text-link underline">
                     {' '}
                     Log in
                 </Link>
