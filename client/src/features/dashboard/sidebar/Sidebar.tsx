@@ -85,7 +85,7 @@ export default function Sidebar() {
                                         'absolute -bottom-1 -right-1 text-xs w-4 h-4 bg-red-400 flex justify-center items-center rounded-full'
                                     }
                                 >
-                                    {notifications < 9 ? notifications : "9+"}
+                                    {notifications < 9 ? notifications : '9+'}
                                 </div>
                             )}
                         </div>
