@@ -8,19 +8,18 @@ export default defineConfig({
     clearScreen: false,
     server: {
         strictPort: true,
-        port: 3000
+        port: 3000,
     },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, './src'),
-            '@components': path.resolve(__dirname, './src/components')
-        }
+        },
     },
     envPrefix: ['VITE_', 'TAURI_'],
     build: {
         target: ['es2021', 'chrome100', 'safari13'],
         minify: !process.env.TAURI_DEBUG ? 'esbuild' : false,
-        sourcemap: !!process.env.TAURI_DEBUG
+        sourcemap: !!process.env.TAURI_DEBUG,
     },
-    plugins: [react(), tailwindcss()]
+    plugins: [react(), tailwindcss()],
 });

@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+:root {
+    --color-brand: #66CB66;
+    --color-text: #FFFFFF;
+}
+
+[data-theme="dark"] {
+    --color-brand: #66CB66;
+    --color-text: #FFFFFF;
+}
+
+[data-theme="dark"] {
+    --color-brand: #66CB66;
+    --color-text: #000000;
+}
