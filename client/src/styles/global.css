@@ -1,0 +1,32 @@
+@import "tailwindcss"; /* Correct for Tailwind v4 with Vite/PostCSS setup */
+
+@theme {
+    --color-brand: #66CB66;
+    --color-text: #FFFFFF;
+    --color-bgMain: #161618;
+    --color-bgDarker: #101010;
+    --color-border: rgba(255, 255, 255, 0.1);
+    --color-link: #9766ff;
+}
+
+html[data-theme="light"] {
+    --color-text: #000000;
+    --color-bgMain: #FAFAFA;
+    --color-bgAlt: #F0F0F0;
+}
+
+@layer base {
+    body {
+        background-color: var(--color-bgMain);
+        color: var(--color-text);
+    }
+
+    input, textarea {
+        &:focus {
+            outline: none;
+        }
+        &::-ms-reveal{
+            display: none;
+        }
+    }
+}
