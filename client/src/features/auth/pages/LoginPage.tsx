@@ -5,7 +5,7 @@ const LoginPage = () => {
     return (
         <div className={'flex flex-col items-center'}>
             <AuthPageHeader
-                title={'Create a new account'}
+                title={'Welcome back!'}
                 promptText={`Don't have an account?`}
                 promptLinkText={'Register'}
                 linkTo={'/register'}

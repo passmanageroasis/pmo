@@ -27,8 +27,8 @@ const InputField = ({
                     'peer w-full transition-all ease-out px-4 pt-5 pb-3 placeholder-transparent rounded-lg inset-ring-1 focus:inset-ring-3',
                     type === 'password' && 'pr-14',
                     error
-                        ? 'bg-red-400/10 inset-ring-red-400'
-                        : 'bg-brand/5  focus:bg-brand/5 placeholder-shown:bg-transparent placeholder-shown:inset-ring-white/50 inset-ring-brand focus:inset-ring-brand',
+                        ? 'bg-red-400/5 inset-ring-red-400'
+                        : 'bg-brand/5  focus:bg-brand/5 placeholder-shown:bg-transparent placeholder-shown:inset-ring-text/50 inset-ring-brand focus:inset-ring-brand',
                     className,
                 )}
                 name={name}
