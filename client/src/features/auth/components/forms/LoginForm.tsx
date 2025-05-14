@@ -26,7 +26,6 @@ const LoginForm = () => {
         onSuccess: (data) => {
             console.log('Login successful:', data);
             login();
-            alert(`Login successful: ${data.message}`);
             navigate('/vault');
         },
         onError: (error) => {

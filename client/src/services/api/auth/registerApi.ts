@@ -21,16 +21,15 @@ export const registerUser = async (userData: RegisterFormValues) => {
         master_password: userData.masterPassword,
     };
 
-    try {
-        const response = await axios.post<RegisterResponse>(
-            `${apiServerURL}/register`,
-            payload,
-        );
-        return response.data;
-    } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            throw error.response.data.error.message || new Error('Registration failed');
-        }
-        throw new Error('An unexpected error occurred during registration');
-    }
+    return await axios
+        .post<RegisterResponse>(`${apiServerURL}/auth/register`, payload)
+        .then((response) => {
+            return response.data;
+        })
+        .catch((err) => {
+            throw new Error(
+                err?.response.data.error.message ||
+                    'Unexpected error during registration.',
+            );
+        });
 };

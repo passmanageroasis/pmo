@@ -1,18 +1,26 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import axios from 'axios';
 
 interface AuthState {
     isAuthenticated: boolean;
     login: () => void;
     logout: () => void;
+    setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
     persist(
         (set) => ({
             isAuthenticated: false,
-            login: () => set({ isAuthenticated: true }),
-            logout: () => set({ isAuthenticated: false }),
+            login: () => {
+                set({ isAuthenticated: true });
+            },
+            logout: () => {
+                set({ isAuthenticated: false });
+            },
+            setIsAuthenticated: (isAuthenticatedValue: boolean) =>
+                set({ isAuthenticated: isAuthenticatedValue }),
         }),
         {
             name: 'user-auth',
@@ -21,21 +29,36 @@ export const useAuthStore = create<AuthState>()(
     ),
 );
 
-// Optional: A way to initialize the store based on an existing token
-// This would typically be called once when your application loads.
-export const initializeAuthStatus = () => {
-    // Example: Check for a token in localStorage
-    // const token = localStorage.getItem('authToken');
-    // if (token) {
-    //   // You might want to validate the token here with your backend
-    //   // For simplicity, we'll just assume if a token exists, the user is authenticated.
-    //   useAuthStore.getState().setIsAuthenticated(true);
-    // } else {
-    //   useAuthStore.getState().setIsAuthenticated(false);
-    // }
-    // If you don't have an external token and just rely on the persisted 'isAuthenticated'
-    // value from Zustand, you don't need to do anything extra here for initialization,
-    // as the `persist` middleware handles loading it from localStorage automatically.
-    // The `isAuthenticated: false` in the store definition acts as the initial default
-    // *if nothing is found in localStorage*.
+export const initializeAuth = async () => {
+    const { setIsAuthenticated, logout } = useAuthStore.getState(); // Get actions from the store
+    const apiServerURL = import.meta.env.VITE_API_SERVER_URL;
+
+    try {
+        console.log('Initializing auth: Validating session with backend...');
+
+        const sessionResponse = await axios
+            .get(`${apiServerURL}/auth/validate-session`, {
+                withCredentials: true,
+            })
+            .then((response) => {
+                console.log(response.data.message);
+                return response;
+            });
+        if (sessionResponse.data.data.is_valid) {
+            setIsAuthenticated(true);
+            await axios
+                .get(`${apiServerURL}/auth/refresh-session`, {
+                    withCredentials: true,
+                })
+                .then((response) => {
+                    console.log(response.data.message);
+                });
+        } else {
+            console.log('Session expired.');
+            logout();
+        }
+    } catch {
+        console.log('No valid session.');
+        logout();
+    }
 };
