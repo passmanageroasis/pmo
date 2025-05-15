@@ -4,16 +4,16 @@
     --color-brand: #66CB66;
     --color-text: #FFFFFF;
     --color-bgMain: #161618;
-    --color-bgDarker: #101010;
+    --color-bgDarker: #121212;
     --color-border: rgba(255, 255, 255, 0.15);
     --color-link: #9766ff;
 }
 
 html[data-theme="light"] {
     --color-text: #000000;
-    --color-bgMain: #FAFAFA;
-    --color-bgDarker: #F6F6F6;
-    --color-border: rgba(0, 0, 0, 0.1);
+    --color-bgMain: #ffffff;
+    --color-bgDarker: #f7f7f7;
+    --color-border: rgba(0, 0, 0, 0.15);
 }
 
 @layer base {

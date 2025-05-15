@@ -17,7 +17,7 @@ const AuthLayout = () => {
                     <Logo className={'h-18 w-18 fill-brand'} />
                     <div
                         className={
-                            'h-18 w-18 absolute inset-0 scale-800 bg-radial from-brand/10 to-70% to-transparent'
+                            'h-18 w-18 absolute inset-0 scale-800 bg-radial from-brand/8 to-70% to-transparent pointer-events-none'
                         }
                     />
                 </div>

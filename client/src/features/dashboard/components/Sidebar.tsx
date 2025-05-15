@@ -1,6 +1,11 @@
 import clsx from 'clsx';
-import { MdKey, MdHistory, MdSettings, MdPhishing } from 'react-icons/md';
-import { RiShieldKeyholeFill } from 'react-icons/ri';
+import {
+    MdLock,
+    MdKey,
+    MdHistory,
+    MdSettings,
+    MdPhishing,
+} from 'react-icons/md';
 import { Link, useLocation } from 'react-router';
 import { IconContext } from 'react-icons';
 import { ReactNode } from 'react';
@@ -17,7 +22,7 @@ const navItems: NavItemProps[][] = [
         {
             link: '/vault',
             name: 'Vault',
-            icon: <RiShieldKeyholeFill />,
+            icon: <MdLock />,
             notifications: 0,
         },
         {
