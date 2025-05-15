@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router';
-import { logoSVG } from '@/assets/logos';
+import { Logo } from '@/components/icons';
 
 const AuthLayout = () => {
     return (
@@ -14,15 +14,11 @@ const AuthLayout = () => {
                 }
             >
                 <div className={'relative'}>
-                    <img
-                        src={logoSVG}
-                        alt={''}
-                        className={'absolute inset-0 scale-200 blur-3xl'}
-                    />
-                    <img
-                        src={logoSVG}
-                        alt={'Pass Manager Oasis Logo'}
-                        className={'h-18 w-auto'}
+                    <Logo className={'h-18 w-18 fill-brand'} />
+                    <div
+                        className={
+                            'h-18 w-18 absolute inset-0 scale-800 bg-radial from-brand/10 to-70% to-transparent'
+                        }
                     />
                 </div>
                 <main className={'w-full'}>

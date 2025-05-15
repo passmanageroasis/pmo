@@ -1,7 +1,6 @@
 import { InputField, ButtonSubmit } from '@/components/form';
 import AuthForm from '@/features/auth/components/AuthForm.tsx';
 import { useForm } from '@tanstack/react-form';
-import { useNavigate } from 'react-router';
 import { useMutation } from '@tanstack/react-query';
 import { loginUser } from '@/services/api/auth/loginApi.ts';
 import { useAuthStore } from '../../store/authStore';
@@ -15,7 +14,6 @@ interface LoginFormValues {
 
 const LoginForm = () => {
     const login = useAuthStore((state) => state.login);
-    const navigate = useNavigate();
 
     useEffect(() => {
         document.querySelector('input')?.focus();
@@ -26,7 +24,6 @@ const LoginForm = () => {
         onSuccess: (data) => {
             console.log('Login successful:', data);
             login();
-            navigate('/vault');
         },
         onError: (error) => {
             console.error('Registration error:', error);
