@@ -20,18 +20,17 @@ export const loginUser = async (userData: LoginFormValues) => {
         master_password: userData.masterPassword,
     };
 
-    try {
-        const response = await axios.post<LoginResponse>(
-            `${apiServerURL}/login`,
-            payload,
-        );
-        return response.data;
-    } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-            throw (
-                error.response.data.error.message || new Error('Login failed')
+    return await axios
+        .post<LoginResponse>(`${apiServerURL}/auth/login`, payload, {
+            withCredentials: true,
+        })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((err) => {
+            throw new Error(
+                err.response.data.error.message ||
+                    'Unexpected error during login.',
             );
-        }
-        throw new Error('An unexpected error occurred during login');
-    }
+        });
 };
