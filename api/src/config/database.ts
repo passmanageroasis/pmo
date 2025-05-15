@@ -9,7 +9,7 @@ const pool = new Pool({
     database: process.env.PGDATABASE,
     max: 20,
     idleTimeoutMillis: 30000,
-    connectionTimeoutMillis: 2000,
+    connectionTimeoutMillis: 5000,
 });
 
 export default pool;
