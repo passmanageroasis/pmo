@@ -7,7 +7,7 @@ const HOST = process.env.HOST || '0.0.0.0';
 
 const server = http.createServer(app);
 
-server.listen(5000, '0.0.0.0', () => {
+server.listen(PORT, HOST, () => {
     console.log(`Server is listening on http://${HOST}:${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
