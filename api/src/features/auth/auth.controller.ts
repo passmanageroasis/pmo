@@ -104,8 +104,6 @@ export const loginUser: RequestHandler = async (req, res) => {
 
     const { sessionToken } = await createSession({ req, userId: user.id });
 
-    console.log(sessionToken);
-
     res.cookie('user_session', sessionToken.token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',

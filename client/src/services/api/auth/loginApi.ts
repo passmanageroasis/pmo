@@ -13,8 +13,6 @@ interface LoginResponse {
 const apiServerURL = import.meta.env.VITE_API_SERVER_URL;
 
 export const loginUser = async (userData: LoginFormValues) => {
-    console.log(apiServerURL);
-
     const payload = {
         email: userData.email,
         master_password: userData.masterPassword,

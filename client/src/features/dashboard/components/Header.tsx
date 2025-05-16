@@ -4,7 +4,7 @@ import clsx from 'clsx';
 const Header = ({ className }: { className?: string }) => {
     return (
         <header
-            className={clsx('h-15 w-full flex items-center px-4', className)}
+            className={clsx('h-15 w-full flex items-center px-6', className)}
         >
             <div
                 className={

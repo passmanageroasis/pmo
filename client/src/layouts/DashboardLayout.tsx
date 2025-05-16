@@ -12,13 +12,16 @@ const DashboardLayout = () => {
             <Sidebar className={'overflow-y-auto peer relative z-100'} />
             <div
                 className={
-                    'h-full w-full flex flex-col peer-hover:opacity-50 transition-opacity duration-300 ease'
+                    'h-screen w-full flex flex-col peer-hover:opacity-50 transition-opacity duration-300 ease'
                 }
             >
                 <Header />
-                <div className={'h-full overflow-scroll p-4 flex-1'}>
+                <main
+                    className={'overflow-scroll p-6 flex-1'}
+                    id={'main-content'}
+                >
                     <Outlet />
-                </div>
+                </main>
             </div>
         </div>
     );

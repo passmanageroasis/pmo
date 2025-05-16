@@ -1,4 +1,5 @@
-import { InputField, ButtonSubmit } from '@/components/form';
+import ButtonSubmit from './ButtonSubmit.tsx';
+import InputField from './InputField.tsx';
 import LinkPrompt from '@/features/auth/components/LinkPrompt.tsx';
 import AuthForm from '@/features/auth/components/AuthForm.tsx';
 import { useForm } from '@tanstack/react-form';

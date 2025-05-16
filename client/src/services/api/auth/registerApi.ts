@@ -14,8 +14,6 @@ interface RegisterResponse {
 const apiServerURL = import.meta.env.VITE_API_SERVER_URL;
 
 export const registerUser = async (userData: RegisterFormValues) => {
-    console.log(apiServerURL);
-
     const payload = {
         email: userData.email,
         master_password: userData.masterPassword,
