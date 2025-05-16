@@ -16,15 +16,16 @@ const AppRouter = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={<PublicRoute />}>
-                    <Route path={'/'} element={<AuthLayout />}>
-                        <Route path={'register'} element={<RegisterPage />} />
-                        <Route path={'login'} element={<LoginPage />} />
+                    <Route element={<AuthLayout />}>
+                        <Route path={'/register'} element={<RegisterPage />} />
+                        <Route path={'/login'} element={<LoginPage />} />
                     </Route>
+                    <Route path={'*'} element={<Navigate to={'/login'} />} />
                 </Route>
                 <Route element={<ProtectedRoute />}>
-                    <Route path={'/'} element={<DashboardLayout />}>
-                        <Route path={'vault'}>
-                            <Route index element={<VaultEntriesPage />}></Route>
+                    <Route element={<DashboardLayout />}>
+                        <Route path={'/vault'}>
+                            <Route index element={<VaultEntriesPage />} />
                             <Route
                                 path={'new'}
                                 element={<NewVaultEntryPage />}
@@ -32,20 +33,20 @@ const AppRouter = () => {
                         </Route>
 
                         <Route
-                            path={'password-generator'}
+                            path={'/password-generator'}
                             element={<PasswordGeneratorPage />}
                         />
                         <Route
-                            path={'data-security'}
+                            path={'/data-security'}
                             element={<DataSecurityPage />}
                         />
                         <Route
-                            path={'recently-deleted'}
+                            path={'/recently-deleted'}
                             element={<RecentlyDeletedPage />}
                         />
-                        <Route path={'settings'} element={<SettingsPage />} />
+                        <Route path={'/settings'} element={<SettingsPage />} />
                         <Route
-                            path={'new'}
+                            path={'/new'}
                             element={<Navigate to={'/vault/new'} />}
                         />
                         <Route
@@ -54,6 +55,7 @@ const AppRouter = () => {
                         />
                     </Route>
                 </Route>
+                <Route path={'*'} element={<Navigate to={'/vault'} />} />
             </Routes>
         </BrowserRouter>
     );
