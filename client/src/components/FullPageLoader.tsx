@@ -4,7 +4,7 @@ const FullPageLoader = () => {
     return (
         <div
             className={
-                'h-screen w-screen bg-bgDarker flex flex-col items-center justify-center fixed top-0'
+                'h-screen h-dvh w-screen bg-bgDarker flex flex-col items-center justify-center fixed top-0'
             }
         >
             <AiOutlineLoading className={'animate-spin h-16 w-16 text-brand'} />

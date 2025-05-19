@@ -5,7 +5,7 @@ const AuthLayout = () => {
     return (
         <div
             className={
-                'w-full min-h-screen h-full flex flex-col justify-between items-center p-6'
+                'w-full min-h-screen min-h-dvh h-full flex flex-col justify-between items-center p-6'
             }
         >
             <div
