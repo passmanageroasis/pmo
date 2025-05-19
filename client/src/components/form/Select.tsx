@@ -20,7 +20,12 @@ const Select = ({
     ...props
 }: SelectProps) => {
     return (
-        <div className={clsx('w-full flex flex-col transition-colors duration-200 ease-out', disabled && 'opacity-50')}>
+        <div
+            className={clsx(
+                'w-full flex flex-col transition-colors duration-200 ease-out',
+                disabled && 'opacity-50',
+            )}
+        >
             <label className={'text-text/50'} htmlFor={name}>
                 {required ? `${label}*` : label}
             </label>
