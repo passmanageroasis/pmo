@@ -17,7 +17,7 @@ const DashboardLayout = () => {
             >
                 <Header />
                 <main
-                    className={'overflow-scroll p-6 flex-1'}
+                    className={'overflow-auto p-6 flex-1'}
                     id={'main-content'}
                 >
                     <Outlet />
