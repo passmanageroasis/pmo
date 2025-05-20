@@ -1,4 +1,4 @@
-# Setup tutorial
+# Project setup
 Here you will learn how to set up the project for further development
 
 ## Prerequisites: 
