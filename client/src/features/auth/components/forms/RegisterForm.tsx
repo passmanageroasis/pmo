@@ -4,7 +4,7 @@ import LinkPrompt from '@/features/auth/components/LinkPrompt.tsx';
 import AuthForm from '@/features/auth/components/AuthForm.tsx';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
-import { registerUser } from '@/services/api/auth/registerApi.ts';
+import { registerUser } from '@/features/auth/api/registerApi.ts';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
 

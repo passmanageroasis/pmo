@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router';
-import { Sidebar } from '@/features/dashboard';
-import Header from '@/features/dashboard/components/Header.tsx';
+import { Sidebar, Header } from './components';
 
 const DashboardLayout = () => {
     return (
