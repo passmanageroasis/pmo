@@ -5,6 +5,7 @@ import {
     MdHistory,
     MdSettings,
     MdPhishing,
+    MdGroups,
 } from 'react-icons/md';
 import { Link, useLocation } from 'react-router';
 import { IconContext } from 'react-icons';
@@ -17,7 +18,7 @@ interface NavItemProps {
     notifications: number;
 }
 
-const navItems: NavItemProps[][] = [
+const navSections: NavItemProps[][] = [
     [
         {
             link: '/vault',
@@ -43,6 +44,12 @@ const navItems: NavItemProps[][] = [
             icon: <MdHistory />,
             notifications: 5,
         },
+        {
+            link: '/users',
+            name: 'All Users',
+            icon: <MdGroups />,
+            notifications: 5,
+        },
     ],
     [
         {
@@ -62,12 +69,12 @@ const NavItem = (navItem: NavItemProps) => {
         <Link to={navItem.link} aria-label={navItem.name}>
             <div
                 className={
-                    'group/link p-1 group-hover/nav:p-0 transition-[max-width,padding] duration-300 ease max-w-15 group-hover/nav:max-w-[14rem]'
+                    'group/link transition-[max-width,padding] duration-300 ease max-w-13 group-hover/nav:max-w-[12.25rem]'
                 }
             >
                 <div
                     className={clsx(
-                        'p-3 rounded-[2rem] flex gap-3 items-center overflow-hidden group-hover/nav:rounded-none group-hover/nav:p-4 transition-[border-radius,padding] duration-300 ease',
+                        'p-3 rounded-[1.8rem] flex gap-3 items-center overflow-hidden group-hover/nav:rounded-[0.6rem] transition-[border-radius,padding] duration-300 ease',
                         isActive
                             ? 'bg-brand/15 group-hover/link:bg-brand/20 text-brand'
                             : 'group-hover/link:bg-text/5 ',
@@ -95,12 +102,12 @@ const Sidebar = ({ className }: { className?: string }) => {
     return (
         <nav
             className={clsx(
-                'group/nav w-fit flex flex-col justify-between bg-bgMain min-w-min border-r-1 border-border',
+                'group/nav w-fit flex flex-col justify-between bg-bgMain min-w-min border-r-1 border-border p-2',
                 className,
             )}
         >
             <div>
-                {navItems[0].map((navItem) => (
+                {navSections[0].map((navItem) => (
                     <NavItem
                         key={navItem.name}
                         link={navItem.link}
@@ -110,9 +117,9 @@ const Sidebar = ({ className }: { className?: string }) => {
                     />
                 ))}
             </div>
-            <div>
-                <div className={'[h-full h-px border-bg'} />
-                {navItems[1].map((navItem) => (
+
+            <div className={'border-t border-border pt-2'}>
+                {navSections[navSections.length - 1].map((navItem) => (
                     <NavItem
                         key={navItem.name}
                         link={navItem.link}

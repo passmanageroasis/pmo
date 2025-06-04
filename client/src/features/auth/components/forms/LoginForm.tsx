@@ -3,7 +3,7 @@ import InputField from './InputField.tsx';
 import AuthForm from '@/features/auth/components/AuthForm.tsx';
 import { useForm } from '@tanstack/react-form';
 import { useMutation } from '@tanstack/react-query';
-import { loginUser } from '@/services/api/auth/loginApi.ts';
+import { loginUser } from '@/features/auth/api/loginApi.ts';
 import { useAuthStore } from '../../store/authStore';
 import { useEffect } from 'react';
 

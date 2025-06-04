@@ -1,1 +1,1 @@
-export { default as TextDivider } from './TextDivider.tsx';
+export { default as FullPageLoader } from './FullPageLoader.tsx';
