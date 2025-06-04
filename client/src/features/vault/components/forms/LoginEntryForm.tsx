@@ -32,7 +32,13 @@ const LoginEntryForm = () => {
                 password: value.password,
                 urls: value.urls,
             };
-            console.log(payload);
+            console.log({
+                entryType: payload.entryType,
+                name: payload.name,
+                tags: payload.tags,
+                notes: payload.notes,
+                urls: payload.urls,
+            });
             // encrypt payload and post to api
         },
     });
