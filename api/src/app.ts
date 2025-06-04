@@ -23,7 +23,8 @@ app.all(/(.*)/, (req: Request, res: Response) => {
     });
 });
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: Error, req: Request, res: Response, _next: NextFunction) => {
     console.error(err.stack);
     res.status(500).json({
         error: { message: 'Internal server error.', stack: err.stack },
